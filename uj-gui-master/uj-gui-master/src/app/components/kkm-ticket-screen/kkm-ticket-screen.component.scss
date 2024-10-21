@@ -1,0 +1,113 @@
+$header-height: 120px;
+.header {
+	height: $header-height;
+	border-bottom: 1px solid black;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 5px;
+}
+
+.header button {
+	height: 100%;
+	font-size: 1.8em;
+	margin: 0 20px;
+}
+
+.body {
+	height: calc(100% - $header-height);
+	padding-top: 20px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.bdColumn {
+	width: 50%;
+	height: 100%;
+}
+
+.zoneSelector {
+	padding: 10px;
+}
+
+.dateSelector {
+	user-select: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	padding-top: 5px;
+}
+
+.dateSelector .dateTitle {
+	font-size: 2.5em;
+}
+.dateSelector ::ng-deep ngb-datepicker ngb-datepicker-navigation-select > .form-select {
+	font-size: 2.5rem;
+	height: 4rem;
+}
+.dateSelector ::ng-deep ngb-datepicker .ngb-dp-navigation-select {
+	flex: 1 1 22rem;
+	font-size: 2.5rem;
+}
+.dateSelector ::ng-deep ngb-datepicker .ngb-dp-day,
+.dateSelector ::ng-deep ngb-datepicker div[ngbdatepickerdayview],
+.dateSelector ::ng-deep ngb-datepicker .ngb-dp-weekday {
+	width: 5rem;
+	height: 5rem;
+	line-height: 5rem;
+	text-align: center;
+}
+.dateSelector ::ng-deep ngb-datepicker .ngb-dp-today {
+	border: 1px solid grey;
+	border-radius: 5px;
+}
+.dateSelector ::ng-deep ngb-datepicker .ngb-dp-navigation-chevron {
+	font-size: 2em;
+}
+
+.zoneButtons {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.zoneButtons button {
+	height: 80px;
+	flex-grow: 1;
+	margin: 0 5px;
+	font-size: 1.8em;
+}
+
+.line {
+	padding-left: 5px;
+}
+
+.line app-keypad {
+	width: 80%;
+}
+
+.line .lineHeader > input,
+.line .lineHeader > label {
+	font-size: 2em;
+	margin-bottom: 20px;
+}
+
+.line .lineHeader {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.ticketPreview {
+	height: calc(100% - 10px);
+	padding: 5px;
+	font-size: 1.2em;
+	border: 1px solid black;
+}

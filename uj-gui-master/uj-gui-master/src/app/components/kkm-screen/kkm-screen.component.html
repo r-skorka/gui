@@ -1,0 +1,35 @@
+<div *ngIf="activeSubComponent === 'insertKKM'" class="wrapper align-items-center">
+	<h1>{{ '#kkmScreen-insert' | translate }}</h1>
+</div>
+<div *ngIf="activeSubComponent === 'kkmRemoved'" class="wrapper align-items-center" (click)="goBack()">
+	<div class="d-flex flex-column align-items-center">
+		<h1>{{ '#kkmScreen-removed' | translate }}</h1>
+	</div>
+</div>
+<div class="wrapper" *ngIf="activeSubComponent === 'KkmSelect'">
+	<button mat-raised-button class="navButton" (click)="KkmSelectHandler('activeTicketsList')">
+		<span>
+			{{ '#kkmScreen-checkActive' | translate }}
+		</span>
+		<mat-icon fill="0" fontIcon="checklist"></mat-icon>
+	</button>
+	<button mat-raised-button class="navButton" (click)="KkmSelectHandler('purchaseTicket')">
+		<span>
+			{{ '#kkmScreen-purchase' | translate }}
+		</span>
+		<mat-icon fill="0" fontIcon="shopping_cart"></mat-icon>
+	</button>
+	<button mat-raised-button class="navButton" (click)="KkmSelectHandler('ticketActivation')">
+		<span>
+			{{ '#kkmScreen-activate' | translate }}
+		</span>
+		<mat-icon fill="0" fontIcon="cloud_download"></mat-icon>
+	</button>
+</div>
+<app-active-tickets-list *ngIf="activeSubComponent === 'activeTicketsList'"></app-active-tickets-list>
+<app-ticket-activation
+	*ngIf="activeSubComponent === 'ticketActivation'"
+	[isTicketAvailable]="isOnlineTicketReady"
+	[goBackFunc]="goBack"
+></app-ticket-activation>
+<app-kkm-ticket-screen *ngIf="activeSubComponent === 'purchaseTicket'" [goBackEvent]="childEEmitter"> </app-kkm-ticket-screen>

@@ -1,0 +1,70 @@
+<div *ngIf="!chosenPaymentMethod" class="methodSelector fullHeight">
+	<button mat-raised-button class="navButton" (click)="paymentMethodSelectHandler('cash')">
+		<span>
+			{{ '#paymentHandler-cash' | translate }}
+		</span>
+		<mat-icon fill="0" fontIcon="payments"></mat-icon>
+	</button>
+	<button mat-raised-button class="navButton" (click)="paymentMethodSelectHandler('card')">
+		<span>
+			{{ '#paymentHandler-card' | translate }}
+		</span>
+		<mat-icon fill="0" fontIcon="credit_card"></mat-icon>
+	</button>
+	<button mat-raised-button class="navButton" (click)="paymentMethodSelectHandler('blik')">
+		<span>
+			{{ '#paymentHandler-blik' | translate }}
+		</span>
+		<mat-icon fill="0" fontIcon="password"></mat-icon>
+	</button>
+</div>
+<div *ngIf="chosenPaymentMethod == 'cash' && cashPaymentStatus == 'inProgress'" class="fullHeight cashPayment">
+	<div class="header">
+		<div>{{ '#paymentHandler-toPay' | translate }}: {{ toPay | number: '1.2-2' }} PLN</div>
+		<div>{{ '#paymentHandler-paid' | translate }}: {{ paid | number: '1.2-2' }} PLN</div>
+		<div>{{ '#paymentHandler-leftToPay' | translate }}: {{ leftToPay | number: '1.2-2' }} PLN</div>
+	</div>
+	<div class="body">
+		<button mat-raised-button (click)="cancelCashPayment()">{{ '#paymentHandler-returnMoney' | translate }}</button>
+		<button mat-raised-button (click)="confirmCashPayment()" color="primary" [disabled]="toPay > paid">
+			{{ '#paymentHandler-confirm' | translate }}
+		</button>
+	</div>
+</div>
+<div
+	*ngIf="chosenPaymentMethod == 'cash' && cashPaymentStatus == 'complete'"
+	class="infoText fullHeight"
+	(click)="cashPaymentCompleteHandler()"
+>
+	<h1>{{ successMsg }}</h1>
+	<h1>{{ '#paymentHandler-pressToExit' | translate }}</h1>
+</div>
+<div *ngIf="chosenPaymentMethod == 'card'" class="infoText fullHeight" (click)="cardPaymentCompleteHandler()">
+	<h1 *ngIf="!cardPaymentResult">{{ '#paymentHandler-cardInstructions' | translate }}</h1>
+	<h1 *ngIf="cardPaymentResult == 'accepted'">{{ successMsg }}</h1>
+	<h1 *ngIf="cardPaymentResult == 'accepted'">{{ '#paymentHandler-pressToExit' | translate }}</h1>
+	<h1 *ngIf="cardPaymentResult == 'declined'">{{ '#paymentHandler-cardDeclined1' | translate }}</h1>
+	<h1 *ngIf="cardPaymentResult == 'declined'">{{ '#paymentHandler-pressToRetry' | translate }}</h1>
+</div>
+<div *ngIf="chosenPaymentMethod == 'blik'" class="fullHeight blikPayment" (click)="blikClosePayment()">
+	<div *ngIf="blikPaymentStatus == 'code'" class="d-flex flex-column keypadWrapper">
+		<div class="keypadHeader">
+			<label for="blikCode">{{ '#paymentHandler-enterBlikCode' | translate }}</label>
+			<input [readonly]="true" name="blikCode" [formControl]="blikInput" />
+		</div>
+		<app-keypad class="keyPad mt-3" (valueOutput)="blikKeypadHandler($event)"></app-keypad>
+	</div>
+	<div *ngIf="blikPaymentStatus == 'waiting'" class="blikPaymentWaiting">
+		<h1>
+			{{ '#paymentHandler-confirmBlikPayment' | translate }}
+		</h1>
+		<img src="./assets/gfx/spinner.gif" />
+		<button class="cancelButton" mat-raised-button color="warn" (click)="blikProcessNavigation('code')">
+			{{ '#paymentHandler-cancel' | translate }}
+		</button>
+	</div>
+	<div *ngIf="blikPaymentStatus == 'confirmation'" class="blikPaymentWaiting infoText">
+		<h1>{{ successMsg }}</h1>
+		<h1>{{ '#paymentHandler-pressToExit' | translate }}</h1>
+	</div>
+</div>
